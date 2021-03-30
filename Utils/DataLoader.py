@@ -23,6 +23,7 @@ class DataLoader():
         
         # Extract labels from rttm file
         label_dict = load_rttm(self.label_files[idx])
-        label = np.array(list(label_dict.values())).squeeze()
+        label = list(label_dict.values())
+        label = label[0]
 
         return ((samplerate, wav_data), label)
