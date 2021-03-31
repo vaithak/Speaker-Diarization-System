@@ -4,4 +4,4 @@ pandas
 scipy
 pyannote.metrics
 resemblyzer
-SpectralClusterer
+spectralcluster
