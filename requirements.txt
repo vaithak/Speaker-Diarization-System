@@ -1,0 +1,7 @@
+numpy
+matplotlib
+pandas
+scipy
+pyannote.metrics
+resemblyzer
+SpectralClusterer
