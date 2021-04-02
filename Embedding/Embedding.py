@@ -1,4 +1,4 @@
-from resemblyzer import VoiceEncoder
+from .VoiceEncoder import VoiceEncoder
 
 def Embedding(wav, return_partials=True, rate=16, encoder = None):
     if (encoder == None):

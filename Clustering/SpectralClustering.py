@@ -16,4 +16,4 @@ class SpectralClustering():
 
     # N x D array containing data samples to be clustered
     def predict(self, data):
-        return clusterer.predict(data)
+        return self.clusterer.predict(data)
