@@ -23,7 +23,7 @@ import wave
 
 import webrtcvad
 
-from hparam import hparam as hp
+from .. import hparam as hp
 
 def read_wave(path, sr):
     """Reads a .wav file.
@@ -158,3 +158,4 @@ def VAD_chunk(aggressiveness, path):
 
 if __name__ == '__main__':
     speech_times, speech_segs = VAD_chunk(sys.argv[1], sys.argv[2])
+

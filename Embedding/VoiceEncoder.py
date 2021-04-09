@@ -10,7 +10,7 @@ import torch
 partials_n_frames = 24
 
 class VoiceEncoder(nn.Module):
-    def __init__(self, device: Union[str, torch.device]=None, verbose=True, weights_fpath: Union[Path, str]=None):
+    def __init__(self, model_num = 1, device: Union[str, torch.device]=None, verbose=True, weights_fpath: Union[Path, str]=None):
         """
         If None, defaults to cuda if it is available on your machine, otherwise the model will
         run on cpu. Outputs are always returned on the cpu, as numpy arrays.
@@ -18,7 +18,15 @@ class VoiceEncoder(nn.Module):
         If None, defaults to built-in "pretrained.pt" model
         """
         super().__init__()
-
+        model_hidden_size = 256
+        model_num_layers = 3
+        model_embedding_size = 256
+            
+        if(model_num == 1):
+            model_hidden_size = 768
+            model_num_layers = 3
+            model_embedding_size = 256
+            
         # Define the network
         self.lstm = nn.LSTM(mel_n_channels, model_hidden_size, model_num_layers, batch_first=True)
         self.linear = nn.Linear(model_hidden_size, model_embedding_size)
@@ -33,7 +41,10 @@ class VoiceEncoder(nn.Module):
 
         # Load the pretrained model'speaker weights
         if weights_fpath is None:
-            weights_fpath = Path(__file__).resolve().parent.joinpath("pretrained.pt")
+            if(model_num == 1):
+                weights_fpath = Path(__file__).resolve().parent.joinpath("model.model")
+            if(model_num == 2):
+                weights_fpath = Path(__file__).resolve().parent.joinpath("pretrained.pt")
         else:
             weights_fpath = Path(weights_fpath)
 
@@ -42,7 +53,7 @@ class VoiceEncoder(nn.Module):
                             weights_fpath)
         start = timer()
         checkpoint = torch.load(weights_fpath, map_location="cpu")
-        self.load_state_dict(checkpoint["model_state"], strict=False)
+        self.load_state_dict(checkpoint, strict=False)
         self.to(device)
 
         if verbose:
