@@ -1,5 +1,5 @@
-from .preprocess import preprocess_audio
+from .preprocess import VAD_chunk
 
 __all__ = [
-    preprocess_audio
+    VAD_chunk
 ]
