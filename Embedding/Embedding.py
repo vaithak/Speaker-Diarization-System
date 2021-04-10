@@ -28,15 +28,29 @@ def concat_segs(times, segs):
     #Concatenate continuous voiced segments
     concat_seg = []
     seg_concat = segs[0]
+
+    continuous_times = []
+    start = times[0][0]
+    end = times[0][1]
+
     for i in range(0, len(times)-1):
         if times[i][1] == times[i+1][0]:
             seg_concat = np.concatenate((seg_concat, segs[i+1]))
+            end = times[i+1][1]
         else:
             concat_seg.append(seg_concat)
             seg_concat = segs[i+1]
+
+            continuous_times.append((start, end))
+            start = times[i+1][0]
+            end = times[i+1][1]
+
     else:
         concat_seg.append(seg_concat)
-    return concat_seg
+        continuous_times.append((start, end))
+
+    return concat_seg, continuous_times
+
 
 def get_STFTs(segs):
     #Get 240ms STFT windows with 50% overlap
