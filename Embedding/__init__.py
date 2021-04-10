@@ -1,5 +1,7 @@
-from .Embedding import Embedding
+from .Embedding import concat_segs, get_STFTs, align_embeddings
 
 __all__ = [
-    Embedding
+    concat_segs,
+    get_STFTs,
+    align_embeddings
 ]

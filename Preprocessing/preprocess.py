@@ -17,13 +17,18 @@ Modified from https://github.com/wiseman/py-webrtcvad/blob/master/example.py
 import collections
 import contextlib
 import numpy as np
-import sys
+import sys 
 import librosa
 import wave
 
 import webrtcvad
 
-from .. import hparam as hp
+import os,sys,inspect
+currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+parentdir = os.path.dirname(currentdir)
+sys.path.insert(0,parentdir) 
+
+from hparam import hparam as hp
 
 def read_wave(path, sr):
     """Reads a .wav file.
